@@ -1,33 +1,160 @@
+# Python program to create a simple GUI 
+# calculator using Tkinter 
+
+# import everything from tkinter module 
 from tkinter import *
 
-root = Tk()
-root.title("Simple Calculator")
-
-e = Entry(root, width=35,borderwidth=5)
-e.grid(row=0,column=0,columnspan=3,padx=10,pady=5)
-
-#e.insert(0,"0")
+# globally declare the expression variable 
+expression = "" 
 
 
-def createGui():
-    myButton0 = Button(root, text="0",padx=40,pady=20, command=button_add).grid(row=5,column=0)
-    myButton1 = Button(root, text="1",padx=40,pady=20, command=button_add).grid(row=4,column=1)
-    myButton2 = Button(root, text="2",padx=40,pady=20, command=button_add).grid(row=4,column=0)
-    myButton3 = Button(root, text="3",padx=40,pady=20, command=button_add).grid(row=4,column=2)
-    myButton4 = Button(root, text="4",padx=40,pady=20, command=button_add).grid(row=3,column=0)
-    myButton5 = Button(root, text="5",padx=40,pady=20, command=button_add).grid(row=3,column=1)
-    myButton6 = Button(root, text="6",padx=40,pady=20, command=button_add).grid(row=3,column=2)
-    myButton7 = Button(root, text="7",padx=40,pady=20, command=button_add).grid(row=2,column=0)
-    myButton8 = Button(root, text="8",padx=40,pady=20, command=button_add).grid(row=2,column=1)
-    myButton9 = Button(root, text="9",padx=40,pady=20, command=button_add).grid(row=2,column=2)
-    myButtonPlus = Button(root, text="+",padx=40,pady=20, command=button_add).grid(row=6,column=0)
-    myButtonMinus = Button(root, text="-",padx=40,pady=20, command=button_add).grid(row=5,column=2)
-    myButtonEquals = Button(root, text="=",padx=40,pady=20, command=button_add).grid(row=5,column=1,columnspan = 2)
-    myButtonClear = Button(root, text="C",padx=40,pady=20, command=button_add).grid(row=6,column=1,columnspan = 2)
+# Function to update expressiom 
+# in the text entry box 
+def press(num): 
+	# point out the global expression variable 
+	global expression 
+
+	# concatenation of string 
+	expression = expression + str(num) 
+
+	# update the expression by using set method 
+	equation.set(expression) 
 
 
-def button_add():
-    pass
-createGui()
-root.mainloop()
-#
+# Function to evaluate the final expression 
+def equalpress(): 
+	# Try and except statement is used 
+	# for handling the errors like zero 
+	# division error etc. 
+
+	# Put that code inside the try block 
+	# which may generate the error 
+	try: 
+
+		global expression 
+
+		# eval function evaluate the expression 
+		# and str function convert the result 
+		# into string 
+		total = str(eval(expression)) 
+
+		equation.set(total) 
+
+		# initialze the expression variable 
+		# by empty string 
+		expression = "" 
+
+	# if error is generate then handle 
+	# by the except block 
+	except: 
+
+		equation.set(" error ") 
+		expression = "" 
+
+
+# Function to clear the contents 
+# of text entry box 
+def clear(): 
+	global expression 
+	expression = "" 
+	equation.set("") 
+
+
+# Driver code 
+if __name__ == "__main__": 
+	# create a GUI window 
+	gui = Tk() 
+
+	# set the background colour of GUI window 
+	gui.configure(background="black") 
+
+	# set the title of GUI window 
+	gui.title("Simple Calculator") 
+
+	# set the configuration of GUI window 
+	gui.geometry("500x600") 
+
+	# StringVar() is the variable class 
+	# we create an instance of this class 
+	equation = StringVar() 
+
+	# create the text entry box for 
+	# showing the expression . 
+	expression_field = Entry(gui, textvariable=equation) 
+
+	# grid method is used for placing 
+	# the widgets at respective positions 
+	# in table like structure . 
+	expression_field.grid(columnspan=30, ipadx=70) 
+
+	equation.set('enter your expression') 
+
+	button1 = Button(gui, text=' 1 ', fg='white', bg="lightblue", 
+					command=lambda: press(1), height=5, width=10) 
+	button1.grid(row=2, column=0) 
+
+	button2 = Button(gui, text=' 2 ', fg='black', bg='red', 
+					command=lambda: press(2),  height=5, width=10) 
+	button2.grid(row=2, column=1) 
+
+	button3 = Button(gui, text=' 3 ', fg='black', bg='red', 
+					command=lambda: press(3),  height=5, width=10) 
+	button3.grid(row=2, column=2) 
+
+	button4 = Button(gui, text=' 4 ', fg='black', bg='red', 
+					command=lambda: press(4), height=5, width=10) 
+	button4.grid(row=3, column=0) 
+
+	button5 = Button(gui, text=' 5 ', fg='black', bg='red', 
+					command=lambda: press(5), height=5, width=10) 
+	button5.grid(row=3, column=1) 
+
+	button6 = Button(gui, text=' 6 ', fg='black', bg='red', 
+					command=lambda: press(6), height=5, width=10) 
+	button6.grid(row=3, column=2) 
+
+	button7 = Button(gui, text=' 7 ', fg='black', bg='red', 
+					command=lambda: press(7), height=5, width=10) 
+	button7.grid(row=4, column=0) 
+
+	button8 = Button(gui, text=' 8 ', fg='black', bg='red', 
+					command=lambda: press(8),  height=5, width=10) 
+	button8.grid(row=4, column=1) 
+
+	button9 = Button(gui, text=' 9 ', fg='black', bg='red', 
+					command=lambda: press(9), height=5, width=10) 
+	button9.grid(row=4, column=2) 
+
+	button0 = Button(gui, text=' 0 ', fg='black', bg='red', 
+					command=lambda: press(0),  height=5, width=10) 
+	button0.grid(row=5, column=0) 
+
+	plus = Button(gui, text=' + ', fg='black', bg='red', 
+				command=lambda: press("+"),  height=5, width=10) 
+	plus.grid(row=2, column=3) 
+
+	minus = Button(gui, text=' - ', fg='black', bg='red', 
+				command=lambda: press("-"),  height=5, width=10) 
+	minus.grid(row=3, column=3) 
+
+	multiply = Button(gui, text=' * ', fg='black', bg='red', 
+					command=lambda: press("*"),  height=5, width=10) 
+	multiply.grid(row=4, column=3) 
+
+	divide = Button(gui, text=' / ', fg='black', bg='red', 
+					command=lambda: press("/"), height=5, width=10) 
+	divide.grid(row=5, column=3) 
+
+	equal = Button(gui, text=' = ', fg='black', bg='red', 
+				command=equalpress,  height=5, width=10) 
+	equal.grid(row=5, column=2) 
+
+	clear = Button(gui, text='Clear', fg='black', bg='red', 
+				command=clear,  height=5, width=10) 
+	clear.grid(row=5, column='1') 
+
+	Decimal= Button(gui, text='.', fg='black', bg='red', 
+					command=lambda: press('.'),  height=5, width=10) 
+	Decimal.grid(row=6, column=0) 
+	# start the GUI 
+	gui.mainloop() 
